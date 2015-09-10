@@ -10,13 +10,16 @@ public class DotPainterActivity extends Activity {
 
     public final static int WIDTH_DIALOG = 1;
     public final static int COLOR_DIALOG =1;
+    private DoodleView doodleView;
     
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dot_painter);
-    }
+
+        doodleView = (DoodleView)findViewById(R.id.doodleview);
+     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -35,6 +38,7 @@ public class DotPainterActivity extends Activity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.actions_setwidth) {
             Intent intent = new Intent(this,SetWidthDialogActivity.class);
+            intent.putExtra("width",doodleView.getPenWidth());
             startActivityForResult(intent,WIDTH_DIALOG);
             return true;
         }
@@ -47,5 +51,13 @@ public class DotPainterActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    protected void onActivityResult(int requestCode, int resultCode,Intent data){
+        if(requestCode == WIDTH_DIALOG){
+            if(resultCode==RESULT_OK){
+                int width = data.getIntExtra("width", doodleView.getPenWidth());
+                doodleView.setPenWidth(width);
+            }
+        }
+    }
 
 }

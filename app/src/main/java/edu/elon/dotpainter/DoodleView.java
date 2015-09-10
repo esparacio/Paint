@@ -14,6 +14,8 @@ import java.util.ArrayList;
  */
 public class DoodleView extends View {
 
+    public final static int DEFAULT_WIDTH = 25;
+
     private ArrayList<Dot> theDots;
     private ArrayList<Line> theLines;
 
@@ -49,6 +51,14 @@ public class DoodleView extends View {
         }
         invalidate();
 
+    }
+
+    public void setPenWidth(int penWidth){
+        this.penWidth = penWidth;
+    }
+
+    public int getPenWidth(){
+        return penWidth;
     }
 
     public void onClickClear(){
